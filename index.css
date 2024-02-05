@@ -6,6 +6,8 @@
 header{
     background-color:#FFC7C7;
     padding: 5px;
+    diyplay:flex;
+    gap:10px;
 }
 header h1{
     padding: 5px;
