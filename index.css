@@ -3,15 +3,23 @@
     margin: 0;
     font-family: 'Montserrat', sans-serif;
 }
-header{
-    background-color:#FFC7C7;
-    padding: 5px;
-    diyplay:flex;
-    gap:10px;
-}
-header h1{
-    padding: 5px;
-}
+:root {
+    --main-color: #fff;
+    --body-color: #d9e2f6;
+    --theam: rgb(245, 44, 181);
+  }
+  .menu_links {
+    display: flex;
+  }
+  
+  .menu_links a {
+    padding: 0.6rem 1rem;
+  }
+  .menu_links a:hover {
+    background-color: var(--theam);
+    color: var(--main-color);
+  }
+
 section{
     display: flex;
     gap: 50px;
@@ -30,18 +38,27 @@ img{
     text-align: center;
     line-height: 1.5em;
 }
-a{
-    margin:5px 0;
+a {
     text-decoration: none;
-    display: block;
-    background-color:#C683D7;
-    width: 90px;
-    padding: 5px;
-    color: whitesmoke;
-    border-radius: 5px;
-}
-a:hover{
-    background-color: #E7BCDE;
-    transition: 0.5s;
-    color: black;
-}
+    font-weight: bold;
+  }
+  
+  li {
+    list-style: none;
+  }
+  .navbar {
+    width: 100%;
+    height: 3rem;
+    background-color: var(--main-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0;
+    position: absolute;
+  }
+  h1{
+    margin-left: 5px
+  }
+ body{
+    background-color: #FFE4C9;
+ }
