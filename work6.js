@@ -27,7 +27,11 @@ class App extends React.Component {
     state = {
         scene: 0,
         students:[],
-
+        stdid:"",
+        stdfname:"",
+        stdlname:"",
+        stdemail:"",
+        stdtitle:""
     }      
     render() {
       return (
@@ -52,12 +56,23 @@ class App extends React.Component {
                     <td>{std.fname}</td>
                     <td>{std.lname}</td>
                     <td>{std.email}</td>
+                    <td><EditButton std={std} app={this} /></td>
+                    <td><DeleteButton std={std} app={this} /></td>
                 </tr>
 
             ))}
-               
             </table>
           </RB.Card.Body>
+          <RB.Card.Footer>
+          <b>เพิ่มนักศึกษา :</b><br/>
+        <TextInput label="ID" app={this} value="stdid"/>  
+        <TextInput label="ชื่อ" app={this} value="stdfname"/>
+        <TextInput label="สกุล" app={this} value="stdlname"/>
+        <TextInput label="Email" app={this} value="stdemail"/>
+        <TextInput label="title" app={this} value="stdtitle"/>             
+        <RB.Button onClick={()=>this.insertData()}>เพิ่มข้อมูล</RB.Button>
+
+          </RB.Card.Footer>
           <RB.Card.Footer>{this.footer}</RB.Card.Footer>
         </RB.Card>          
       );
@@ -81,9 +96,50 @@ class App extends React.Component {
             this.setState({students: stdlist});
         });
     }
-
-   
+    insertData(){
+        db.collection("students").doc(this.state.stdid).set({
+           title : this.state.stdtitle,
+           fname : this.state.stdfname,
+           lname : this.state.stdlname,
+           email : this.state.stdemail,
+        });
+      }
+      edit(std){      
+        this.setState({
+         stdid:std.id,
+         stdtitle:std.title,
+         stdfname:std.fname,
+         stdlname: std.lname,
+         stdemail : std.email,
+        })
+     }
+     
+delete(std){
+    if(confirm("ต้องการลบข้อมูล")){
+       db.collection("students").doc(std.id).delete();
+    }
+}  
   }
+
+  function TextInput({label,app,value}){
+    return <label className="form-label">
+    {label}:    
+     <input className="form-control"
+     value={app.state[value]} onChange={(ev)=>{
+         var s={};
+         s[value]=ev.target.value;
+         app.setState(s)}
+     }></input>
+   </label>;  
+  }
+  function EditButton({std,app}){
+    return <button onClick={()=>app.edit(std)} >แก้ไข</button>
+   }
+   function DeleteButton({std,app}){    
+    return <button onClick={()=>app.delete(std)}>ลบ</button>
+  }
+
+ 
 
 
   const container = document.getElementById("myapp");
